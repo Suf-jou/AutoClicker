@@ -18,6 +18,9 @@ def toggle_clicking():
         button["text"] = "Start Clicking"
         autoclicker_instance.stop()
 
+def update_interval(value):
+    autoclicker_instance.set_interval(float(value))
+
 label = tk.Label(root, text="Auto Clicker", font=("Arial", 24))
 label.pack(pady=20)
 
@@ -28,8 +31,9 @@ button.pack(pady=20)
 
 
 
-scalar = tk.Scale(root, from_=0.1, to=5.0, resolution=0.1, orient=tk.HORIZONTAL, label="Click Interval (seconds)", font=("Arial", 10), length=300) 
+scalar = tk.Scale(root, from_=0.1, to=5.0, resolution=0.1, orient=tk.HORIZONTAL, label="Click Interval (seconds)", font=("Arial", 10), length=300, command=update_interval) 
 scalar.pack(pady=20)
+autoclicker_instance.set_interval(scalar.get())
 
 
 root.mainloop()
