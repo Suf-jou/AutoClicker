@@ -2,6 +2,8 @@ import tkinter as tk
 
 from core import autoclicker
 
+
+autoclicker_instance = autoclicker()
 root = tk.Tk()
 root.geometry("800x600")
 root.title("Auto Clicker")
@@ -9,10 +11,12 @@ root.title("Auto Clicker")
 def toggle_clicking():
     if button["text"] == "Start Clicking":
         button["text"] = "Stop Clicking"
+        autoclicker_instance.start()
 
 
     else:
         button["text"] = "Start Clicking"
+        autoclicker_instance.stop()
 
 label = tk.Label(root, text="Auto Clicker", font=("Arial", 24))
 label.pack(pady=20)

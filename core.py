@@ -1,4 +1,5 @@
 import pyautogui
+import threading
 from time import sleep
 class autoclicker():
     def __init__(self):
@@ -7,6 +8,7 @@ class autoclicker():
 
     def click(self):
         pyautogui.click()
+        print("Clicked at position:", pyautogui.position())
 
     def stop(self):
         self.running = False
@@ -20,5 +22,7 @@ class autoclicker():
         self.interval = interval
 
     def start(self):
+        sleep(1)  # Optional: Wait for 1 second before starting
         self.running = True
-        self.loop()
+        self.thread = threading.Thread(target=self.loop, daemon=True)
+        self.thread.start()
