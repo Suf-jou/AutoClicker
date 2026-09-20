@@ -1,4 +1,5 @@
 from random import random
+import keyboard
 
 import pyautogui
 import threading
@@ -8,6 +9,7 @@ class autoclicker():
         self.running = False
         self.interval = 0.1
         self.randomise = False
+        self.on_stop = None
 
     def click(self):
         pyautogui.click()
@@ -15,9 +17,15 @@ class autoclicker():
 
     def stop(self):
         self.running = False
+        if self.on_stop is not None:
+            self.on_stop()
 
     def loop(self):
         while self.running:
+            if keyboard.is_pressed("shift"):
+                self.stop()
+                break
+              
             self.click()
             if self.randomise:
                 sleep(self.interval + (self.interval * 0.5 * (2 * random.random() - 1)))  # Randomize interval by ±50%

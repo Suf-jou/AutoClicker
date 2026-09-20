@@ -8,12 +8,16 @@ root = tk.Tk()
 root.geometry("800x600")
 root.title("Auto Clicker")
 
+def update_button_text():
+    if autoclicker_instance.running:
+        button["text"] = "Stop Clicking"
+    else:
+        button["text"] = "Start Clicking"
+
 def toggle_clicking():
     if button["text"] == "Start Clicking":
         button["text"] = "Stop Clicking"
         autoclicker_instance.start()
-
-
     else:
         button["text"] = "Start Clicking"
         autoclicker_instance.stop()
@@ -33,13 +37,13 @@ button = tk.Button(root, text="Start Clicking", font=("Arial", 16), command=togg
 button.pack(pady=20)
 
 checkbox_var = tk.BooleanVar()
-checkbox = tk.Checkbutton(root, text="Randomize Click interval", variable=checkbox_var, font=("Arial", 12))
+checkbox = tk.Checkbutton(root, text="Randomize Click interval", variable=checkbox_var, font=("Arial", 12), command=toggle_randomization)
 checkbox.pack(pady=10)
 
 
 scalar = tk.Scale(root, from_=0.1, to=5.0, resolution=0.1, orient=tk.HORIZONTAL, label="Click Interval (seconds)", font=("Arial", 10), length=300, command=update_interval) 
 scalar.pack(pady=20)
 autoclicker_instance.set_interval(scalar.get())
-
+autoclicker_instance.on_stop = lambda: root.after(0, update_button_text)
 
 root.mainloop()
