@@ -21,6 +21,9 @@ def toggle_clicking():
 def update_interval(value):
     autoclicker_instance.set_interval(float(value))
 
+def toggle_randomization():
+    autoclicker_instance.toggle_randomization()
+
 label = tk.Label(root, text="Auto Clicker", font=("Arial", 24))
 label.pack(pady=20)
 
@@ -29,6 +32,9 @@ label.pack(pady=20)
 button = tk.Button(root, text="Start Clicking", font=("Arial", 16), command=toggle_clicking)
 button.pack(pady=20)
 
+checkbox_var = tk.BooleanVar()
+checkbox = tk.Checkbutton(root, text="Randomize Click interval", variable=checkbox_var, font=("Arial", 12))
+checkbox.pack(pady=10)
 
 
 scalar = tk.Scale(root, from_=0.1, to=5.0, resolution=0.1, orient=tk.HORIZONTAL, label="Click Interval (seconds)", font=("Arial", 10), length=300, command=update_interval) 
